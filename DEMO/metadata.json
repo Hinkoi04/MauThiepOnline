@@ -1,0 +1,6 @@
+{
+  "name": "Thiệp Cưới Quốc Tuấn & Bích Hạnh - Save The Date",
+  "description": "Ứng dụng thiệp cưới trực tuyến sang trọng, hiện đại cho đám cưới Quốc Tuấn & Bích Hạnh. Tích hợp Save The Date, lịch trình tiệc cưới, album ảnh, RSVP và mừng cưới.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

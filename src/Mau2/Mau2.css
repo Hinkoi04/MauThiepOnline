@@ -1,0 +1,110 @@
+/* Vietnamese Calligraphy & Serif Typography */
+.font-script,
+.font-calligraphy {
+  font-family: 'Dancing Script', 'Playfair Display', cursive, sans-serif !important;
+  letter-spacing: 0.5px;
+}
+
+.font-cormorant {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-playfair,
+.font-serif {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-sans {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+/* Custom shadows & utilities */
+.arch-shadow {
+  box-shadow: 0 10px 30px -5px rgba(27, 46, 75, 0.12), 0 0 0 1px rgba(208, 219, 231, 0.6);
+}
+
+.card-soft-shadow {
+  box-shadow: 0 -8px 30px -4px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(226, 232, 240, 0.8);
+}
+
+.shadow-2xs,
+.shadow-xs {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.backdrop-blur-xs {
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.aspect-3\/4,
+.aspect-3-4 {
+  aspect-ratio: 3 / 4;
+}
+
+/* Hide scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Floating animation */
+@keyframes softFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-soft-float {
+  animation: softFloat 3s ease-in-out infinite;
+}
+
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 12s linear infinite;
+}
+
+/* ── SCROLL REVEAL UTILITY STYLES (SIÊU CHẬM RÃI 3.0S, CẢM NHẬN TRỌN VẸN TỪNG CHUYỂN ĐỘNG) ── */
+.reveal-init {
+  opacity: 0;
+  transition: opacity 3.0s cubic-bezier(0.16, 1, 0.3, 1), transform 3.0s cubic-bezier(0.16, 1, 0.3, 1), filter 3.0s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.reveal-up {
+  transform: translateY(65px);
+}
+
+.reveal-left {
+  transform: translateX(-90px);
+}
+
+.reveal-right {
+  transform: translateX(90px);
+}
+
+.reveal-scale {
+  transform: scale(0.85);
+}
+
+.reveal-active {
+  opacity: 1 !important;
+  transform: translate(0, 0) scale(1) !important;
+  filter: blur(0px) !important;
+}
+
+

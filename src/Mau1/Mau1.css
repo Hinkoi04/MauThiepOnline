@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+/* Animations */
+@keyframes overlayFadeOut {
+  0% {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  100% {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+  }
+}
+
+.overlay-fade-out {
+  animation: overlayFadeOut 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes tapBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.tap-bounce {
+  animation: tapBounce 1.6s ease-in-out infinite;
+}
+
+@keyframes filmScroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.film-scroll-track {
+  animation: filmScroll 16s linear infinite;
+}
+
+.film-scroll-track:hover {
+  animation-play-state: paused;
+}
