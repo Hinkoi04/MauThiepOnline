@@ -38,13 +38,6 @@ export interface WeddingEvent {
   type: 'groom_house' | 'bride_house' | 'reception';
 }
 
-export interface LoveMilestone {
-  year: string;
-  title: string;
-  description: string;
-  iconName: string;
-}
-
 export interface GalleryPhoto {
   id: string;
   title: string;
@@ -62,24 +55,3 @@ export interface GuestWish {
   timestamp: string;
 }
 
-export interface RSVPResponse {
-  id: string;
-  name: string;
-  phone: string;
-  attending: 'yes' | 'no' | 'unsure';
-  guestCount: number;
-  attendingEvent: string;
-  dietary: 'standard' | 'vegetarian' | 'other';
-  note?: string;
-  createdAt: string;
-}
-
-export interface BankAccount {
-  ownerName: string;
-  bankName: string;
-  bankCode: string;
-  accountNumber: string;
-  branch?: string;
-  role: 'groom' | 'bride';
-  avatar?: string;
-}

@@ -1,4 +1,4 @@
-import type { WeddingInfo, WeddingEvent, LoveMilestone, GalleryPhoto, GuestWish, BankAccount } from '../types';
+import type { WeddingInfo, WeddingEvent, GalleryPhoto, GuestWish } from '../types';
 
 export const initialWeddingInfo: WeddingInfo = {
   groomName: 'Tên Chú Rể',
@@ -41,33 +41,6 @@ export const weddingEvents: WeddingEvent[] = [
     mapEmbedUrl: 'https://maps.google.com/maps?q=An%20Ph%C3%BA,%20Qu%E1%BA%A3ng%20Ng%C3%A3i&t=&z=14&ie=UTF8&iwloc=&output=embed',
     calendarTitle: 'Tiệc Cưới: Tên Chú Rể & Tên Cô Dâu',
     type: 'reception',
-  },
-];
-
-export const loveMilestones: LoveMilestone[] = [
-  {
-    year: '2021',
-    title: 'Lần đầu chạm ánh mắt',
-    description: 'Một buổi chiều thu Hà Nội tại quán cà phê phố cổ, ánh mắt vô tình giao nhau bắt đầu cho một hành trình diệu kỳ.',
-    iconName: 'Coffee',
-  },
-  {
-    year: '2022',
-    title: 'Lời ngỏ lời yêu thương',
-    description: 'Chuyến đi Đà Lạt đầu tiên dưới màn sương sớm, chàng trai đã gom đủ can đảm nắm lấy bàn tay dịu dàng của cô gái.',
-    iconName: 'Heart',
-  },
-  {
-    year: '2025',
-    title: 'Em đồng ý nhé!',
-    description: 'Bên bờ biển lúc hoàng hôn buông xuống, một chiếc nhẫn lấp lánh và câu trả lời "Em đồng ý" ngập tràn giọt nước mắt hạnh phúc.',
-    iconName: 'Sparkles',
-  },
-  {
-    year: '2026',
-    title: 'Về chung một nhà',
-    description: 'Ngày 28.03.2026 - Chúng mình chính thức viết tiếp chương mới của cuộc đời bằng một đám cưới ấm áp bên người thân thương.',
-    iconName: 'Home',
   },
 ];
 
@@ -140,24 +113,5 @@ export const initialWishes: GuestWish[] = [
     message: 'Bác chúc hai cháu luôn thuận hòa, yêu thương tôn trọng lẫn nhau, cùng vun đắp một tổ ấm thật hạnh phúc và bền vững.',
     likes: 24,
     timestamp: '1 giờ trước',
-  },
-];
-
-export const bankAccounts: BankAccount[] = [
-  {
-    ownerName: 'TEN CHU RE',
-    bankName: 'Vietcombank',
-    bankCode: 'VCB',
-    accountNumber: '998828032026',
-    branch: 'Chi nhánh Hà Nội',
-    role: 'groom',
-  },
-  {
-    ownerName: 'TEN CO DAU',
-    bankName: 'Techcombank',
-    bankCode: 'TCB',
-    accountNumber: '190368280326',
-    branch: 'Chi nhánh Ba Đình',
-    role: 'bride',
   },
 ];
