@@ -1,7 +1,7 @@
 import React from 'react';
-import { Heart, Calendar, Image, MessageSquareHeart, Gift, Home } from 'lucide-react';
+import { Heart, Calendar, Image, MessageSquareHeart, Home } from 'lucide-react';
 
-export type ScreenId = 'cover' | 'invitation' | 'schedule' | 'story' | 'gallery' | 'guestbook' | 'gift';
+export type ScreenId = 'cover' | 'invitation' | 'schedule' | 'story' | 'gallery' | 'guestbook';
 
 interface NavigationTabBarProps {
   activeScreen: ScreenId;
@@ -38,19 +38,14 @@ export const NavigationTabBar: React.FC<NavigationTabBarProps> = ({
       label: 'Lưu Bút',
       icon: <MessageSquareHeart className="w-4 h-4" />,
     },
-    {
-      id: 'gift',
-      label: 'Mừng Cưới',
-      icon: <Gift className="w-4 h-4" />,
-    },
   ];
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 max-w-[450px] mx-auto z-40 bg-white/95 backdrop-blur-md border-t border-[#e2d3f2] px-2 py-1.5 shadow-[0_-4px_20px_rgba(107,33,168,0.08)]"
+      className="fixed bottom-0 left-0 right-0 max-w-[450px] mx-auto z-40 bg-white/95 backdrop-blur-md border-t border-[#e2d3f2] px-2 py-1 shadow-[0_-4px_20px_rgba(107,33,168,0.08)]"
       aria-label="Điều hướng thiệp cưới"
     >
-      <div className="grid grid-cols-6 gap-1 max-w-md mx-auto">
+      <div className="grid grid-cols-5 gap-1 max-w-md mx-auto">
         {tabs.map((tab) => {
           const isActive = activeScreen === tab.id;
           return (

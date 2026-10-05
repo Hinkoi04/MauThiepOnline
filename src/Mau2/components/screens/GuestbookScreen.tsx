@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { initialWishes } from '../../data/weddingData';
 import type { GuestWish } from '../../types';
-import { BotanicalSprig } from '../BotanicalSprig';
 import { Heart, Send } from 'lucide-react';
 
 export const GuestbookScreen: React.FC = () => {
@@ -72,9 +71,6 @@ export const GuestbookScreen: React.FC = () => {
 
   return (
     <div className="relative w-full min-h-full px-4 sm:px-5 py-6 bg-gradient-to-b from-[#faf6fe] via-[#f5ebfc] to-[#faf6fe] text-[#300f47]">
-      <BotanicalSprig position="left" color="#8b5eb5" className="absolute top-2 left-2 scale-75 opacity-70" />
-      <BotanicalSprig position="right" color="#8b5eb5" className="absolute top-2 right-2 scale-75 opacity-70" />
-
       <div className="max-w-md mx-auto space-y-6 pt-4">
         {/* Header */}
         <div className="text-center space-y-1">
@@ -132,43 +128,55 @@ export const GuestbookScreen: React.FC = () => {
           </button>
         </form>
 
-        {/* Wishes List */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between text-xs text-slate-500 px-1">
-            <span className="font-medium text-[#4a1d6d]">
-              Lời chúc đã nhận ({wishes.length})
+        {/* Wishes List - Bong bóng hình viên thuốc trong suốt hiện lên ẩn xuống liên tục */}
+        <div className="space-y-4 pt-1">
+          <div className="flex items-center justify-between text-xs text-slate-500 px-2">
+            <span className="font-semibold text-[#4a1d6d] tracking-wide">
+              Bong bóng lời chúc ({wishes.length})
             </span>
-            <span className="text-[11px] text-purple-400">Cập nhật liên tục</span>
+            <span className="text-[11px] text-purple-400 font-serif italic">
+              ✦ Trôi bồng bềnh
+            </span>
           </div>
 
-          {wishes.map((wish) => {
-            const isLiked = likedIds.includes(wish.id);
-            return (
-              <div
-                key={wish.id}
-                className="bg-white rounded-xl p-4 border border-[#e2d3f2] shadow-2xs space-y-2 text-xs"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-full bg-[#f3e7fb] text-[#6b3594] font-bold flex items-center justify-center text-xs border border-[#e2d3f2]">
+          <div className="space-y-3 relative py-2">
+            {wishes.map((wish, index) => {
+              const isLiked = likedIds.includes(wish.id);
+              const animClass = `animate-pill-bubble-${index % 6}`;
+
+              return (
+                <div
+                  key={wish.id}
+                  className={`w-full rounded-full bg-white/75 backdrop-blur-md border border-white/90 shadow-[0_6px_20px_rgba(107,33,168,0.07)] p-2.5 sm:p-3 flex items-center justify-between gap-3 text-xs transition-transform hover:scale-[1.02] ${animClass}`}
+                >
+                  {/* Avatar Tròn & Nội Dung Lời Chúc Dạng Viên Thuốc */}
+                  <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                    <div className="shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-[#f3e7fb] to-[#e7d2f7] text-[#6b3594] font-bold flex items-center justify-center text-xs border border-white shadow-2xs">
                       {wish.senderName.charAt(0).toUpperCase()}
                     </div>
-                    <div>
-                      <span className="font-semibold text-slate-900 block leading-tight">
-                        {wish.senderName}
-                      </span>
-                      <span className="text-[10px] text-slate-400">
-                        {wish.timestamp}
-                      </span>
+                    
+                    <div className="min-w-0 flex-1 pr-1">
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-[#3b1554] truncate text-xs">
+                          {wish.senderName}
+                        </span>
+                        <span className="text-[9.5px] text-slate-400 shrink-0">
+                          {wish.timestamp}
+                        </span>
+                      </div>
+                      <p className="text-slate-700 font-sans truncate text-[11px] sm:text-xs leading-tight mt-0.5">
+                        "{wish.message}"
+                      </p>
                     </div>
                   </div>
 
+                  {/* Nút Thả Tim */}
                   <button
                     onClick={() => handleLike(wish.id)}
-                    className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] transition-colors cursor-pointer ${
+                    className={`shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-full text-[11px] font-semibold transition-all cursor-pointer border ${
                       isLiked
-                        ? 'bg-rose-50 text-rose-600 font-semibold'
-                        : 'bg-purple-50 text-[#7c4a9e] hover:bg-purple-100'
+                        ? 'bg-rose-50/90 text-rose-600 border-rose-200'
+                        : 'bg-white/80 text-[#7c4a9e] border-[#e8dcef] hover:bg-purple-50'
                     }`}
                   >
                     <Heart
@@ -179,13 +187,9 @@ export const GuestbookScreen: React.FC = () => {
                     <span>{wish.likes}</span>
                   </button>
                 </div>
-
-                <p className="text-slate-700 font-sans leading-relaxed pl-10.5">
-                  "{wish.message}"
-                </p>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

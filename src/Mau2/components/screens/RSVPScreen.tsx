@@ -8,7 +8,7 @@ interface RSVPScreenProps {
   onSubmittedSuccess?: () => void;
 }
 
-export const RSVPScreen: React.FC<RSVPScreenProps> = ({ weddingInfo }) => {
+export const RSVPScreen: React.FC<RSVPScreenProps> = ({ weddingInfo, onSubmittedSuccess }) => {
   const [name, setName] = useState(
     weddingInfo.guestName && weddingInfo.guestName !== 'Anh/ Chị & Người thương'
       ? weddingInfo.guestName
@@ -47,26 +47,27 @@ export const RSVPScreen: React.FC<RSVPScreenProps> = ({ weddingInfo }) => {
     }
 
     setIsSubmitted(true);
+    onSubmittedSuccess?.();
   };
 
   return (
-    <div className="relative w-full min-h-full px-4 sm:px-5 py-6 bg-gradient-to-b from-[#f3f7fa] via-[#edf3f8] to-[#f8fafc] text-[#1b2b40]">
-      <BotanicalSprig position="left" className="absolute top-2 left-2 scale-75 opacity-60" />
-      <BotanicalSprig position="right" className="absolute top-2 right-2 scale-75 opacity-60" />
+    <div className="relative w-full min-h-full px-4 sm:px-5 py-6 bg-gradient-to-b from-[#faf7fb] via-[#f7eff7] to-[#faf7fb] text-[#300f47]">
+      <BotanicalSprig position="left" color="#c497b2" className="absolute top-2 left-2 scale-75 opacity-60 pointer-events-none" />
+      <BotanicalSprig position="right" color="#c497b2" className="absolute top-2 right-2 scale-75 opacity-60 pointer-events-none" />
 
       <div className="max-w-md mx-auto space-y-6 pt-4">
         {/* Header */}
         <div className="text-center space-y-1">
-          <span className="text-[11px] font-semibold tracking-[0.25em] text-[#607791] uppercase">
+          <span className="text-[11px] font-semibold tracking-[0.25em] text-[#7c4a9e] uppercase">
             XÁC NHẬN THAM DỰ
           </span>
-          <h2 className="font-serif text-2xl font-semibold text-[#18293f] tracking-wide">
+          <h2 className="font-serif text-2xl font-semibold text-[#3b1554] tracking-wide">
             Đăng Ký Tham Dự (RSVP)
           </h2>
           <p className="text-xs text-slate-500 font-sans">
             Vui lòng phản hồi trước ngày 20/03/2026 để chúng mình chuẩn bị chu đáo nhất
           </p>
-          <div className="w-12 h-0.5 bg-[#8da2b5] mx-auto mt-2" />
+          <div className="w-12 h-0.5 bg-[#a87ccb] mx-auto mt-2" />
         </div>
 
         {isSubmitted ? (
@@ -152,8 +153,8 @@ export const RSVPScreen: React.FC<RSVPScreenProps> = ({ weddingInfo }) => {
                     onClick={() => setAttending(item.id as 'yes' | 'no' | 'unsure')}
                     className={`py-2 px-2 rounded-xl text-center font-medium transition-all ${
                       attending === item.id
-                        ? 'bg-[#1b2b40] text-white shadow-2xs'
-                        : 'bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100'
+                        ? 'bg-[#4a1d6d] text-white shadow-xs'
+                        : 'bg-slate-50 text-slate-600 border border-[#e2d3f2] hover:bg-purple-50'
                     }`}
                   >
                     {item.label}
@@ -177,8 +178,8 @@ export const RSVPScreen: React.FC<RSVPScreenProps> = ({ weddingInfo }) => {
                         onClick={() => setGuestCount(num)}
                         className={`flex-1 py-2 rounded-xl text-center font-semibold transition-all ${
                           guestCount === num
-                            ? 'bg-[#1b2b40] text-white'
-                            : 'bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100'
+                            ? 'bg-[#4a1d6d] text-white shadow-xs'
+                            : 'bg-slate-50 text-slate-600 border border-[#e2d3f2] hover:bg-purple-50'
                         }`}
                       >
                         {num} người
@@ -195,7 +196,7 @@ export const RSVPScreen: React.FC<RSVPScreenProps> = ({ weddingInfo }) => {
                   <select
                     value={attendingEvent}
                     onChange={(e) => setAttendingEvent(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-hidden focus:border-[#355070] text-slate-800"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2d3f2] bg-white focus:outline-hidden focus:border-[#7c4a9e] text-slate-800"
                   >
                     <option value="Tiệc Cưới Trống Đồng Palace (17:30)">
                       Tiệc Cưới Trống Đồng Palace (17:30 - 28/03/2026)
@@ -223,8 +224,8 @@ export const RSVPScreen: React.FC<RSVPScreenProps> = ({ weddingInfo }) => {
                       onClick={() => setDietary('standard')}
                       className={`py-2 px-3 rounded-xl font-medium text-center transition-colors ${
                         dietary === 'standard'
-                          ? 'bg-[#1b2b40] text-white'
-                          : 'bg-slate-50 text-slate-600 border border-slate-200'
+                          ? 'bg-[#4a1d6d] text-white shadow-xs'
+                          : 'bg-slate-50 text-slate-600 border border-[#e2d3f2] hover:bg-purple-50'
                       }`}
                     >
                       Món ăn thông thường
@@ -234,8 +235,8 @@ export const RSVPScreen: React.FC<RSVPScreenProps> = ({ weddingInfo }) => {
                       onClick={() => setDietary('vegetarian')}
                       className={`py-2 px-3 rounded-xl font-medium text-center transition-colors ${
                         dietary === 'vegetarian'
-                          ? 'bg-[#1b2b40] text-white'
-                          : 'bg-slate-50 text-slate-600 border border-slate-200'
+                          ? 'bg-[#4a1d6d] text-white shadow-xs'
+                          : 'bg-slate-50 text-slate-600 border border-[#e2d3f2] hover:bg-purple-50'
                       }`}
                     >
                       Ăn chay / Dị ứng thực phẩm
@@ -255,14 +256,14 @@ export const RSVPScreen: React.FC<RSVPScreenProps> = ({ weddingInfo }) => {
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 placeholder="Gửi gắm lời chúc hoặc lưu ý đặc biệt cho cô dâu chú rể nhé..."
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-hidden focus:border-[#355070] text-slate-800 resize-none"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-[#e2d3f2] focus:outline-hidden focus:border-[#7c4a9e] text-slate-800 resize-none"
               />
             </div>
 
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full py-3 rounded-xl bg-[#1b2b40] hover:bg-[#283e5c] text-white font-semibold flex items-center justify-center gap-2 shadow-sm transition-colors text-sm cursor-pointer"
+              className="w-full py-3 rounded-xl bg-[#4a1d6d] hover:bg-[#5c2487] text-white font-semibold flex items-center justify-center gap-2 shadow-sm transition-colors text-sm cursor-pointer"
             >
               <Send className="w-4 h-4" />
               <span>Gửi Xác Nhận Tham Dự</span>

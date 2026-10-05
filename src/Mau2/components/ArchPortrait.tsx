@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Camera } from 'lucide-react';
 
 interface ArchPortraitProps {
-  badgeDate?: string;
   customImageUrl?: string;
   onImageChange?: (newUrl: string) => void;
   className?: string;

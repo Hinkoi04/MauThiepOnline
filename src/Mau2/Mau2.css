@@ -107,4 +107,74 @@
   filter: blur(0px) !important;
 }
 
+/* ── TRANSPARENT FLOATING PILL BUBBLE ANIMATIONS (HIỆN LÊN ẨN XUỐNG LIÊN TỤC) ── */
+@keyframes pillBubbleFadeFloat1 {
+  0% {
+    transform: translateY(12px) scale(0.92);
+    opacity: 0.15;
+  }
+  30%, 70% {
+    transform: translateY(-6px) scale(1);
+    opacity: 0.98;
+  }
+  100% {
+    transform: translateY(-16px) scale(0.94);
+    opacity: 0.15;
+  }
+}
+
+@keyframes pillBubbleFadeFloat2 {
+  0% {
+    transform: translateY(8px) scale(0.94);
+    opacity: 0.2;
+  }
+  35%, 65% {
+    transform: translateY(-10px) scale(1);
+    opacity: 0.98;
+  }
+  100% {
+    transform: translateY(-18px) scale(0.92);
+    opacity: 0.2;
+  }
+}
+
+@keyframes pillBubbleFadeFloat3 {
+  0% {
+    transform: translateY(14px) scale(0.9);
+    opacity: 0.1;
+  }
+  40%, 70% {
+    transform: translateY(-8px) scale(1);
+    opacity: 0.98;
+  }
+  100% {
+    transform: translateY(-20px) scale(0.92);
+    opacity: 0.1;
+  }
+}
+
+.animate-pill-bubble-0 {
+  animation: pillBubbleFadeFloat1 5.5s ease-in-out infinite;
+}
+
+.animate-pill-bubble-1 {
+  animation: pillBubbleFadeFloat2 6.5s ease-in-out infinite 1.4s;
+}
+
+.animate-pill-bubble-2 {
+  animation: pillBubbleFadeFloat3 6.0s ease-in-out infinite 2.8s;
+}
+
+.animate-pill-bubble-3 {
+  animation: pillBubbleFadeFloat1 7.0s ease-in-out infinite 0.7s;
+}
+
+.animate-pill-bubble-4 {
+  animation: pillBubbleFadeFloat2 6.2s ease-in-out infinite 2.1s;
+}
+
+.animate-pill-bubble-5 {
+  animation: pillBubbleFadeFloat3 6.8s ease-in-out infinite 3.5s;
+}
+
 

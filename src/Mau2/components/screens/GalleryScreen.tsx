@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { galleryPhotos } from '../../data/weddingData';
-import { BotanicalSprig } from '../BotanicalSprig';
 import { X, ChevronLeft, ChevronRight, Maximize2, Heart } from 'lucide-react';
 import { useInView } from '../../hooks/useInView';
 
@@ -58,9 +57,6 @@ export const GalleryScreen: React.FC = () => {
 
   return (
     <div className="relative w-full min-h-full px-4 sm:px-5 py-8 bg-gradient-to-b from-[#faf7fb] via-[#f7eff7] to-[#faf7fb] text-[#300f47] overflow-hidden">
-      <BotanicalSprig position="left" color="#c497b2" className="absolute top-2 left-2 scale-75 opacity-60 pointer-events-none" />
-      <BotanicalSprig position="right" color="#c497b2" className="absolute top-2 right-2 scale-75 opacity-60 pointer-events-none" />
-
       <div className="max-w-md mx-auto space-y-5 pt-1">
         {/* Header */}
         <div 

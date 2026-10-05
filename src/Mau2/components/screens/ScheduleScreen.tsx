@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { weddingEvents, initialWeddingInfo } from '../../data/weddingData';
-import { BotanicalSprig } from '../BotanicalSprig';
 import { WeddingCalendarCard } from '../WeddingCalendarCard';
-import { MapPin, Calendar, ExternalLink, Check, Copy, Navigation } from 'lucide-react';
+import { Calendar, Check, Copy, Navigation } from 'lucide-react';
 import { useInView } from '../../hooks/useInView';
 
 export const ScheduleScreen: React.FC = () => {
@@ -10,9 +9,9 @@ export const ScheduleScreen: React.FC = () => {
   const event = weddingEvents[0];
   const info = initialWeddingInfo;
 
-  const { ref: calendarRef, isInView: calendarInView } = useInView({ threshold: 0.15 });
   const { ref: parentsRef, isInView: parentsInView } = useInView({ threshold: 0.15 });
   const { ref: eventRef, isInView: eventInView } = useInView({ threshold: 0.15 });
+  const { ref: calendarRef, isInView: calendarInView } = useInView({ threshold: 0.15 });
   const { ref: mapRef, isInView: mapInView } = useInView({ threshold: 0.15 });
 
   if (!event) return null;
@@ -32,22 +31,14 @@ export const ScheduleScreen: React.FC = () => {
 
   return (
     <div className="relative w-full min-h-full px-4 sm:px-6 py-8 bg-gradient-to-b from-[#faf7fb] via-[#f7eff7] to-[#faf7fb] text-[#300f47] overflow-hidden">
-      <BotanicalSprig position="left" color="#c497b2" className="absolute top-2 left-2 scale-75 opacity-60 pointer-events-none" />
-      <BotanicalSprig position="right" color="#c497b2" className="absolute top-2 right-2 scale-75 opacity-60 pointer-events-none" />
-
       <div className="max-w-md mx-auto space-y-7 pt-1">
         
-        {/* ── THẺ LỊCH CƯỚI ĐẶC TRƯNG VỚI TRÁI TIM ĐỎ & ẢNH CẶP ĐÔI ── */}
-        <div ref={calendarRef} className={`reveal-init reveal-up ${calendarInView ? 'reveal-active' : ''}`}>
-          <WeddingCalendarCard weddingDateStr={info.solarDateText} dayToHighlight={29} />
-        </div>
-
-        {/* Card chứa toàn bộ thông tin theo mẫu hình */}
+        {/* Card chứa toàn bộ thông tin lịch trình hôn lễ */}
         <div className="bg-white/95 rounded-3xl p-5 sm:p-7 border border-[#e8dcef] shadow-md space-y-6">
           
           {/* ── 1. PHẦN NHÀ TRAI - NHÀ GÁI (2 BÊN ĐỐI DIỆN TRƯỢT VÀO NHAU) ── */}
           <div ref={parentsRef} className="grid grid-cols-2 gap-4 text-center overflow-hidden py-1">
-            {/* Nhà Trai: Trượt từ bên trái sang */}
+            {/* Nhà Trai */}
             <div 
               className={`space-y-1 reveal-init reveal-left ${
                 parentsInView ? 'reveal-active' : ''
@@ -70,7 +61,7 @@ export const ScheduleScreen: React.FC = () => {
               )}
             </div>
 
-            {/* Nhà Gái: Trượt từ bên phải sang */}
+            {/* Nhà Gái */}
             <div 
               className={`space-y-1 reveal-init reveal-right ${
                 parentsInView ? 'reveal-active' : ''
@@ -97,7 +88,7 @@ export const ScheduleScreen: React.FC = () => {
           {/* ── 2. TIÊU ĐỀ LỄ CƯỚI & GIỜ TỔ CHỨC ── */}
           <div 
             ref={eventRef} 
-            className={`space-y-4 reveal-init reveal-scale ${eventInView ? 'reveal-active' : ''}`}
+            className={`space-y-5 reveal-init reveal-scale ${eventInView ? 'reveal-active' : ''}`}
           >
             <div className="text-center space-y-1 pt-2 border-t border-[#f0e4f5]">
               <h2 className="font-serif text-base sm:text-lg font-bold tracking-[0.18em] text-[#3b1554] uppercase">
@@ -143,8 +134,13 @@ export const ScheduleScreen: React.FC = () => {
               </p>
             </div>
 
-            {/* ── 5. ĐỊA ĐIỂM TỔ CHỨC ── */}
-            <div className="text-center space-y-1 pt-1">
+            {/* ── 5. KHUNG LỊCH CƯỚI NẰM NGAY DƯỚI LỄ CƯỚI & TRÊN ĐỊA ĐIỂM TỔ CHỨC ── */}
+            <div ref={calendarRef} className={`pt-2 pb-1 reveal-init reveal-up ${calendarInView ? 'reveal-active' : ''}`}>
+              <WeddingCalendarCard weddingDateStr={info.solarDateText} dayToHighlight={29} />
+            </div>
+
+            {/* ── 6. ĐỊA ĐIỂM TỔ CHỨC ── */}
+            <div className="text-center space-y-1.5 pt-3 border-t border-[#f0e4f5]">
               <h3 className="font-serif text-sm sm:text-base font-bold tracking-[0.18em] text-[#3b1554] uppercase">
                 {event.locationName || 'ĐỊA ĐIỂM TỔ CHỨC'}
               </h3>
@@ -154,45 +150,15 @@ export const ScheduleScreen: React.FC = () => {
             </div>
           </div>
 
-          {/* ── 6. KHUNG BẢN ĐỒ GOOGLE MAPS EMBEDDED KÈM NÚT MAPS ── */}
+          {/* ── 7. CÁC NÚT HÀNH ĐỘNG TỐI GIẢN (CHỈ ĐƯỜNG & CHÉP ĐỊA CHỈ) ── */}
           <div 
             ref={mapRef} 
-            className={`space-y-2 pt-2 reveal-init reveal-up ${mapInView ? 'reveal-active' : ''}`}
+            className={`space-y-3 pt-1 reveal-init reveal-up ${mapInView ? 'reveal-active' : ''}`}
           >
-            <div className="relative w-full h-52 sm:h-60 rounded-2xl overflow-hidden border border-[#dfd0ed] shadow-inner bg-slate-100 group">
-              {event.mapEmbedUrl ? (
-                <iframe
-                  title="Google Maps Location"
-                  src={event.mapEmbedUrl}
-                  className="w-full h-full border-0"
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  allowFullScreen
-                />
-              ) : (
-                <div className="w-full h-full flex flex-col items-center justify-center text-slate-400 p-4 text-center text-xs space-y-2 bg-[#f9f5fc]">
-                  <MapPin className="w-8 h-8 text-[#8b5eb5]" />
-                  <span>Bản đồ vị trí sẽ hiển thị tại đây</span>
-                </div>
-              )}
-
-              {/* Nút Maps nổi ở góc trên bên trái giống hình mẫu */}
-              <a
-                href={event.mapUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute top-3 left-3 bg-white/95 hover:bg-white text-slate-800 text-xs font-semibold py-1.5 px-3 rounded-lg shadow-md border border-slate-200 flex items-center gap-1.5 transition-all hover:scale-105 cursor-pointer z-10"
-              >
-                <span>Maps</span>
-                <ExternalLink className="w-3.5 h-3.5 text-[#3b1554]" />
-              </a>
-            </div>
-
-            {/* Các nút tiện ích: Chép địa chỉ & Chỉ đường */}
-            <div className="grid grid-cols-2 gap-2.5 pt-2">
+            <div className="grid grid-cols-2 gap-2.5">
               <button
                 onClick={copyAddress}
-                className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-medium transition-colors cursor-pointer border border-slate-200/70 shadow-2xs"
+                className="flex items-center justify-center gap-1.5 py-3 px-3 rounded-2xl bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-semibold transition-colors cursor-pointer border border-slate-200 shadow-2xs"
               >
                 {copied ? (
                   <>
@@ -211,7 +177,7 @@ export const ScheduleScreen: React.FC = () => {
                 href={event.mapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-[#4a1d6d] hover:bg-[#5c2487] text-white text-xs font-semibold transition-colors cursor-pointer shadow-xs"
+                className="flex items-center justify-center gap-1.5 py-3 px-3 rounded-2xl bg-[#4a1d6d] hover:bg-[#5c2487] text-white text-xs font-semibold transition-colors cursor-pointer shadow-sm"
               >
                 <Navigation className="w-3.5 h-3.5 text-amber-200" />
                 <span>Chỉ đường Maps</span>
@@ -219,7 +185,7 @@ export const ScheduleScreen: React.FC = () => {
             </div>
 
             {/* Thêm vào Google Calendar */}
-            <div className="text-center pt-1">
+            <div className="text-center pt-0.5">
               <a
                 href={createGoogleCalendarLink()}
                 target="_blank"

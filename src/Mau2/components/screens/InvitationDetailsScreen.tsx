@@ -1,6 +1,5 @@
 import React from 'react';
 import type { WeddingInfo } from '../../types';
-import { BotanicalSprig } from '../BotanicalSprig';
 import { Calendar, MessageSquareHeart, Heart } from 'lucide-react';
 import { useInView } from '../../hooks/useInView';
 
@@ -21,10 +20,6 @@ export const InvitationDetailsScreen: React.FC<InvitationDetailsScreenProps> = (
 
   return (
     <div className="relative w-full min-h-full px-4 sm:px-6 py-8 bg-gradient-to-b from-[#faf7fb] via-[#f7eff7] to-[#faf7fb] text-[#300f47] overflow-hidden">
-      {/* Decorative corners */}
-      <BotanicalSprig position="left" color="#c497b2" className="absolute top-2 left-2 scale-75 opacity-60 pointer-events-none" />
-      <BotanicalSprig position="right" color="#c497b2" className="absolute top-2 right-2 scale-75 opacity-60 pointer-events-none" />
-
       <div className="max-w-md mx-auto text-center space-y-6 pt-2">
         {/* Title */}
         <div 

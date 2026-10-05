@@ -4,11 +4,7 @@ import { ChevronUp } from 'lucide-react';
 export type CoverPhase = 'idle' | 'sliding' | 'exiting';
 
 export interface WeddingEnvelopeCoverProps {
-  groomName: string;
-  brideName: string;
   guestName: string;
-  solarDateText: string;
-  lunarDateText: string;
   onDone: () => void;
 }
 

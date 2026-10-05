@@ -10,11 +10,9 @@ import { ScheduleScreen } from './components/screens/ScheduleScreen';
 import { LoveStoryScreen } from './components/screens/LoveStoryScreen';
 import { GalleryScreen } from './components/screens/GalleryScreen';
 import { GuestbookScreen } from './components/screens/GuestbookScreen';
-import { GiftBoxScreen } from './components/screens/GiftBoxScreen';
 import { NavigationTabBar } from './components/NavigationTabBar';
 import type { ScreenId } from './components/NavigationTabBar';
 import { FallingPetals } from './components/FallingPetals';
-import { GuestNameModal } from './components/GuestNameModal';
 import { Volume2, VolumeX, Sparkles } from 'lucide-react';
 
 export interface Mau2Props {
@@ -27,8 +25,6 @@ export default function Mau2({ defaultOpened = false }: Mau2Props) {
   const [activeSection, setActiveSection] = useState<ScreenId>('cover');
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
   const [petalsEnabled, setPetalsEnabled] = useState(true);
-  const [isGuestModalOpen, setIsGuestModalOpen] = useState(false);
-  const [customArchUrl, setCustomArchUrl] = useState<string | undefined>(undefined);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -114,7 +110,7 @@ export default function Mau2({ defaultOpened = false }: Mau2Props) {
   useEffect(() => {
     if (!opened) return;
     const handleScroll = () => {
-      const sectionIds: ScreenId[] = ['cover', 'invitation', 'schedule', 'story', 'gallery', 'guestbook', 'gift'];
+      const sectionIds: ScreenId[] = ['cover', 'invitation', 'schedule', 'story', 'gallery', 'guestbook'];
       const scrollPos = window.scrollY + 200;
 
       for (let i = sectionIds.length - 1; i >= 0; i--) {
@@ -153,11 +149,7 @@ export default function Mau2({ defaultOpened = false }: Mau2Props) {
       {/* ── INTERACTIVE OPENING ENVELOPE COVER ── */}
       {!opened && (
         <WeddingEnvelopeCover
-          groomName={weddingInfo.groomName}
-          brideName={weddingInfo.brideName}
           guestName={weddingInfo.guestName}
-          solarDateText={weddingInfo.solarDateText}
-          lunarDateText={weddingInfo.lunarDateText}
           onDone={handleEnvelopeDone}
         />
       )}
@@ -205,9 +197,6 @@ export default function Mau2({ defaultOpened = false }: Mau2Props) {
         <CoverScreen
           weddingInfo={weddingInfo}
           onExploreClick={() => scrollToSection('invitation')}
-          onOpenGuestCustomizer={() => setIsGuestModalOpen(true)}
-          customArchUrl={customArchUrl}
-          onArchUrlChange={setCustomArchUrl}
           isPlayingMusic={isPlayingMusic}
           onToggleMusic={toggleMusic}
         />
@@ -242,11 +231,6 @@ export default function Mau2({ defaultOpened = false }: Mau2Props) {
         <GuestbookScreen />
       </section>
 
-      {/* ── SECTION 7: GIFT BOX & QR BANKING (2 HÌNH VIÊN THUỐC SO LE) ── */}
-      <section id="section-gift" className="relative w-full border-t border-[#e2d3f2]">
-        <GiftBoxScreen />
-      </section>
-
       {/* Romantic Footer */}
       <footer className="w-full py-10 text-center bg-[#f4eafc] border-t border-[#e2d3f2] text-xs text-purple-700 space-y-2">
         <div className="font-calligraphy text-3xl text-[#3b1554]">
@@ -261,16 +245,6 @@ export default function Mau2({ defaultOpened = false }: Mau2Props) {
       <NavigationTabBar
         activeScreen={activeSection}
         onSelectScreen={(screenId) => scrollToSection(screenId)}
-      />
-
-      {/* Guest Name Customizer Modal */}
-      <GuestNameModal
-        isOpen={isGuestModalOpen}
-        onClose={() => setIsGuestModalOpen(false)}
-        currentGuestName={weddingInfo.guestName}
-        onSaveGuestName={(newName) => {
-          setWeddingInfo((prev) => ({ ...prev, guestName: newName }));
-        }}
       />
     </div>
   );
