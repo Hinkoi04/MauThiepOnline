@@ -80,15 +80,15 @@ export const CoverScreen: React.FC<CoverScreenProps> = ({
           </h1>
         </div>
 
-        {/* Tên Cặp Đôi (Hiệu ứng đi từ 2 bên vô chậm 3s) & Ngày Cưới */}
+        {/* Tên Cặp Đôi (Hiệu ứng trượt từ 2 bên vô êm dịu chậm 4s) & Ngày Cưới */}
         <div className="text-center w-full max-w-sm mx-auto space-y-1.5 overflow-hidden py-1">
           <div className="flex items-center justify-center gap-3">
             {/* Tên Chú Rể đi từ bên trái vào */}
             <span
-              className={`font-calligraphy text-3xl sm:text-4xl text-[#3b1554] font-normal transition-all duration-[3000ms] ease-out inline-block ${
+              className={`font-calligraphy text-3xl sm:text-4xl text-[#3b1554] font-normal transition-all duration-[4000ms] cubic-bezier(0.2,0.8,0.2,1) inline-block ${
                 contentInView
                   ? 'opacity-100 translate-x-0'
-                  : 'opacity-0 -translate-x-24'
+                  : 'opacity-0 -translate-x-16'
               }`}
             >
               {weddingInfo.groomName}
@@ -96,7 +96,7 @@ export const CoverScreen: React.FC<CoverScreenProps> = ({
 
             {/* Dấu & ở giữa */}
             <span
-              className={`font-serif italic text-lg text-[#8b5eb5] transition-all duration-[2600ms] ease-out delay-300 inline-block ${
+              className={`font-serif italic text-lg text-[#8b5eb5] transition-all duration-[3800ms] cubic-bezier(0.2,0.8,0.2,1) delay-150 inline-block ${
                 contentInView ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
               }`}
             >
@@ -105,10 +105,10 @@ export const CoverScreen: React.FC<CoverScreenProps> = ({
 
             {/* Tên Cô Dâu đi từ bên phải vào */}
             <span
-              className={`font-calligraphy text-3xl sm:text-4xl text-[#3b1554] font-normal transition-all duration-[3000ms] ease-out inline-block ${
+              className={`font-calligraphy text-3xl sm:text-4xl text-[#3b1554] font-normal transition-all duration-[4000ms] cubic-bezier(0.2,0.8,0.2,1) inline-block ${
                 contentInView
                   ? 'opacity-100 translate-x-0'
-                  : 'opacity-0 translate-x-24'
+                  : 'opacity-0 translate-x-16'
               }`}
             >
               {weddingInfo.brideName}
@@ -116,7 +116,7 @@ export const CoverScreen: React.FC<CoverScreenProps> = ({
           </div>
 
           <div
-            className={`font-serif text-sm sm:text-base font-medium tracking-[0.25em] text-[#541f7a] transition-all duration-[2800ms] ease-out delay-500 ${
+            className={`font-serif text-sm sm:text-base font-medium tracking-[0.25em] text-[#541f7a] transition-all duration-[3800ms] cubic-bezier(0.2,0.8,0.2,1) delay-300 ${
               contentInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
           >

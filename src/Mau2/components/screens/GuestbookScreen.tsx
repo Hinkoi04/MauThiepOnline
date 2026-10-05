@@ -2,12 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { initialWishes } from '../../data/weddingData';
 import type { GuestWish } from '../../types';
 import { Heart, Send } from 'lucide-react';
+import { useInView } from '../../hooks/useInView';
 
 export const GuestbookScreen: React.FC = () => {
   const [wishes, setWishes] = useState<GuestWish[]>([]);
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
   const [likedIds, setLikedIds] = useState<string[]>([]);
+
+  const { ref: headerRef, isInView: headerInView } = useInView({ threshold: 0.15 });
+  const { ref: formRef, isInView: formInView } = useInView({ threshold: 0.15 });
+  const { ref: wishesRef, isInView: wishesInView } = useInView({ threshold: 0.15 });
 
   useEffect(() => {
     try {
@@ -73,7 +78,10 @@ export const GuestbookScreen: React.FC = () => {
     <div className="relative w-full min-h-full px-4 sm:px-5 py-6 bg-gradient-to-b from-[#faf6fe] via-[#f5ebfc] to-[#faf6fe] text-[#300f47]">
       <div className="max-w-md mx-auto space-y-6 pt-4">
         {/* Header */}
-        <div className="text-center space-y-1">
+        <div 
+          ref={headerRef} 
+          className={`text-center space-y-1 reveal-init reveal-up ${headerInView ? 'reveal-active' : ''}`}
+        >
           <span className="text-[11px] font-semibold tracking-[0.25em] text-[#7c4a9e] uppercase">
             SỔ LƯU BÚT
           </span>
@@ -88,8 +96,11 @@ export const GuestbookScreen: React.FC = () => {
 
         {/* Input Form: Chỉ Tên và Lời Chúc */}
         <form
+          ref={formRef}
           onSubmit={handleSendWish}
-          className="bg-white rounded-2xl p-4 sm:p-5 border border-[#e2d3f2] shadow-sm space-y-3.5 text-xs"
+          className={`bg-white rounded-2xl p-4 sm:p-5 border border-[#e2d3f2] shadow-sm space-y-3.5 text-xs reveal-init reveal-up ${
+            formInView ? 'reveal-active' : ''
+          }`}
         >
           <div>
             <label className="font-semibold text-slate-700 block mb-1.5">
@@ -129,7 +140,10 @@ export const GuestbookScreen: React.FC = () => {
         </form>
 
         {/* Wishes List - Bong bóng hình viên thuốc cuộn liên tục lặp lại trong khung cố định (chứa ~5 cái) */}
-        <div className="space-y-2 pt-2">
+        <div 
+          ref={wishesRef}
+          className={`space-y-2 pt-2 reveal-init reveal-up ${wishesInView ? 'reveal-active' : ''}`}
+        >
           <div className="flex items-center justify-between text-xs text-slate-500 px-2">
             <span className="font-semibold text-[#4a1d6d] tracking-wide">
               Bong bóng lời chúc ({wishes.length})

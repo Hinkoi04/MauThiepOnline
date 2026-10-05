@@ -78,27 +78,27 @@
   animation: spinSlow 12s linear infinite;
 }
 
-/* ── SCROLL REVEAL UTILITY STYLES (SIÊU CHẬM RÃI 4.0S, CẢM NHẬN TRỌN VẸN TỪNG CHUYỂN ĐỘNG) ── */
+/* ── SCROLL REVEAL UTILITY STYLES (MƯỢT MÀ, CHẬM RÃI 3.8S) ── */
 .reveal-init {
   opacity: 0;
-  transition: opacity 4.0s cubic-bezier(0.16, 1, 0.3, 1), transform 4.0s cubic-bezier(0.16, 1, 0.3, 1), filter 4.0s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 3.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 3.8s cubic-bezier(0.2, 0.8, 0.2, 1), filter 3.8s cubic-bezier(0.2, 0.8, 0.2, 1);
   will-change: transform, opacity;
 }
 
 .reveal-up {
-  transform: translateY(65px);
+  transform: translateY(50px);
 }
 
 .reveal-left {
-  transform: translateX(-90px);
+  transform: translateX(-60px);
 }
 
 .reveal-right {
-  transform: translateX(90px);
+  transform: translateX(60px);
 }
 
 .reveal-scale {
-  transform: scale(0.85);
+  transform: scale(0.92);
 }
 
 .reveal-active {

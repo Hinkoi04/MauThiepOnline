@@ -91,9 +91,9 @@ export const WeddingCalendarCard: React.FC<WeddingCalendarCardProps> = ({
                     key={idx}
                     className="flex items-center justify-center h-5 sm:h-6"
                     style={{
-                      transition: 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                      transition: 'all 2.8s cubic-bezier(0.2, 0.8, 0.2, 1)',
                       transitionDelay: isInView ? `${delayMs}ms` : '0ms',
-                      transform: isInView ? 'translateY(0) scale(1)' : 'translateY(14px) scale(0.6)',
+                      transform: isInView ? 'translateY(0) scale(1)' : 'translateY(12px) scale(0.65)',
                       opacity: isInView ? 1 : 0,
                     }}
                   >

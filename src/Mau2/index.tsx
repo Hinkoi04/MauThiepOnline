@@ -121,7 +121,7 @@ export default function Mau2({ defaultOpened = false }: Mau2Props) {
       isAutoScrollingRef.current = true;
       let lastTime: number | null = null;
       // Scroll speed: ~55 pixels per second (smooth and readable)
-      const scrollSpeed = 0.055;
+      const scrollSpeed = 0.07;
 
       const scrollLoop = (time: number) => {
         if (!isAutoScrollingRef.current) return;
@@ -180,9 +180,8 @@ export default function Mau2({ defaultOpened = false }: Mau2Props) {
   return (
     <div
       ref={containerRef}
-      className={`relative w-full font-sans text-[#300f47] bg-[#faf6fe] ${
-        !opened ? 'h-[100dvh] overflow-hidden' : 'min-h-screen pb-24 overflow-x-hidden'
-      }`}
+      className={`relative w-full font-sans text-[#300f47] bg-[#faf6fe] ${!opened ? 'h-[100dvh] overflow-hidden' : 'min-h-screen pb-24 overflow-x-hidden'
+        }`}
     >
       {/* ── INTERACTIVE OPENING ENVELOPE COVER ── */}
       {!opened && (
@@ -200,11 +199,10 @@ export default function Mau2({ defaultOpened = false }: Mau2Props) {
         {/* Petals Toggle Pill */}
         <button
           onClick={() => setPetalsEnabled(!petalsEnabled)}
-          className={`p-2 rounded-full backdrop-blur-md shadow-md border transition-all cursor-pointer ${
-            petalsEnabled
-              ? 'bg-white/90 text-purple-600 border-purple-200'
-              : 'bg-white/70 text-slate-400 border-slate-200 hover:text-slate-600'
-          }`}
+          className={`p-2 rounded-full backdrop-blur-md shadow-md border transition-all cursor-pointer ${petalsEnabled
+            ? 'bg-white/90 text-purple-600 border-purple-200'
+            : 'bg-white/70 text-slate-400 border-slate-200 hover:text-slate-600'
+            }`}
           title={petalsEnabled ? 'Tắt hiệu ứng cánh hoa' : 'Bật hiệu ứng cánh hoa'}
           aria-label="Bật/Tắt cánh hoa"
         >
@@ -214,11 +212,10 @@ export default function Mau2({ defaultOpened = false }: Mau2Props) {
         {/* Music Toggle Pill */}
         <button
           onClick={toggleMusic}
-          className={`p-2 rounded-full backdrop-blur-md shadow-md border transition-all cursor-pointer ${
-            isPlayingMusic
-              ? 'bg-[#4a1d6d] text-amber-200 border-[#6b2a9e] animate-spin-slow'
-              : 'bg-white/90 text-slate-600 border-slate-200 hover:bg-white'
-          }`}
+          className={`p-2 rounded-full backdrop-blur-md shadow-md border transition-all cursor-pointer ${isPlayingMusic
+            ? 'bg-[#4a1d6d] text-amber-200 border-[#6b2a9e] animate-spin-slow'
+            : 'bg-white/90 text-slate-600 border-slate-200 hover:bg-white'
+            }`}
           title={isPlayingMusic ? 'Tắt nhạc nền' : 'Bật nhạc đám cưới'}
           aria-label="Bật/Tắt nhạc cưới"
         >
