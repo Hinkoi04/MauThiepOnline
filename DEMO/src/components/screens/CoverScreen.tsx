@@ -42,15 +42,10 @@ export const CoverScreen: React.FC<CoverScreenProps> = ({
         <div className="flex items-center justify-center gap-3 mb-1.5">
           <span className="w-8 sm:w-10 h-[1px] bg-[#899cb0]" />
           <span className="text-[11px] sm:text-xs font-semibold tracking-[0.25em] text-[#2c3e55] uppercase font-sans">
-            SAVE THE DATE
+            LỄ THÀNH HÔN
           </span>
           <span className="w-8 sm:w-10 h-[1px] bg-[#899cb0]" />
         </div>
-
-        {/* LỄ THÀNH HÔN */}
-        <h1 className="text-xs sm:text-[13px] font-serif font-medium tracking-[0.35em] text-[#1e2f47] uppercase">
-          LỄ THÀNH HÔN
-        </h1>
       </div>
 
       {/* Center Main Stage: Arch Window & Couple Names */}
@@ -153,11 +148,10 @@ export const CoverScreen: React.FC<CoverScreenProps> = ({
               onToggleMusic();
             }}
             aria-label={isPlayingMusic ? 'Tạm dừng nhạc' : 'Phát nhạc đám cưới'}
-            className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shadow-md border transition-all duration-300 ${
-              isPlayingMusic
-                ? 'bg-[#1b2b40] text-white border-[#304562] shadow-[0_4px_16px_rgba(27,43,64,0.4)] animate-spin-slow'
-                : 'bg-white text-[#1b2b40] border-[#cbd5e1] hover:bg-slate-50 shadow-sm'
-            }`}
+            className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shadow-md border transition-all duration-300 ${isPlayingMusic
+              ? 'bg-[#1b2b40] text-white border-[#304562] shadow-[0_4px_16px_rgba(27,43,64,0.4)] animate-spin-slow'
+              : 'bg-white text-[#1b2b40] border-[#cbd5e1] hover:bg-slate-50 shadow-sm'
+              }`}
           >
             {isPlayingMusic ? (
               <span className="font-serif text-lg leading-none select-none">♫</span>
