@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { ChevronUp } from 'lucide-react';
 
-export type CoverPhase = 'idle' | 'sliding' | 'exiting';
+export type CoverPhase = 'idle' | 'fading' | 'exiting';
 
 export interface WeddingEnvelopeCoverProps {
   guestName: string;
@@ -18,21 +18,22 @@ export const WeddingEnvelopeCover: React.FC<WeddingEnvelopeCoverProps> = ({
 
   const handleTap = useCallback(() => {
     if (phase !== 'idle') return;
-    setPhase('sliding');
-    setTimeout(() => setPhase('exiting'), 3400);
-    setTimeout(onDone, 4200);
+    setPhase('fading');
+    setTimeout(() => {
+      setPhase('exiting');
+      onDone();
+    }, 2500);
   }, [phase, onDone]);
 
   return (
     <div
       onClick={handleTap}
-      className={`fixed inset-0 z-[200] flex items-center justify-center cursor-pointer select-none overflow-hidden touch-none ${
-        phase === 'exiting' ? 'opacity-0 pointer-events-none' : ''
-      }`}
+      className={`fixed inset-0 z-[200] flex items-center justify-center cursor-pointer select-none overflow-hidden touch-none transition-all duration-[2500ms] ease-in-out ${phase !== 'idle'
+          ? 'opacity-0 pointer-events-none scale-105 blur-[4px]'
+          : 'opacity-100 scale-100 blur-0'
+        }`}
       style={{
         backgroundColor: '#1b1226',
-        transform: phase !== 'idle' ? 'translateY(-100%)' : 'translateY(0)',
-        transition: 'transform 3.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.4s ease 1.0s',
         touchAction: 'none',
       }}
     >
@@ -44,10 +45,10 @@ export const WeddingEnvelopeCover: React.FC<WeddingEnvelopeCoverProps> = ({
 
       {/* ── KHUNG THIỆP BÌA CHÍNH (CHIA 70% ẢNH VÀ 30% THÔNG TIN) ── */}
       <div className="relative w-full max-w-[430px] h-[100dvh] max-h-[920px] flex flex-col p-2.5 sm:p-3.5 box-border overflow-hidden z-10">
-        
+
         {/* Vỏ thiệp bo góc có viền vàng gold sang trọng */}
         <div className="relative w-full h-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_16px_50px_rgba(0,0,0,0.45)] border border-[#c8a452]/40 bg-[#f7f1fb] flex flex-col">
-          
+
           {/* ── PHẦN 1: ẢNH BÌA CHIẾM 70% CHIỀU CAO (VỚI HIỆU ỨNG MỜ DẦN / RÕ DẦN Ở ĐÁY) ── */}
           <div className="relative w-full h-[70%] overflow-hidden">
             {/* Ảnh gốc */}
@@ -58,14 +59,14 @@ export const WeddingEnvelopeCover: React.FC<WeddingEnvelopeCoverProps> = ({
             />
 
             {/* Gradient chuyển tiếp mờ dần - rõ dần cực êm giữa ảnh và nền dưới */}
-            <div 
-              className="absolute inset-x-0 bottom-0 h-32 sm:h-36 bg-gradient-to-b from-transparent via-[#f7f1fb]/75 via-40% to-[#f7f1fb] pointer-events-none z-10" 
+            <div
+              className="absolute inset-x-0 bottom-0 h-32 sm:h-36 bg-gradient-to-b from-transparent via-[#f7f1fb]/75 via-40% to-[#f7f1fb] pointer-events-none z-10"
             />
           </div>
 
           {/* ── PHẦN 2: 30% CHIỀU CAO CÒN LẠI CHỨA THIỆP MỜI & NÚT MỞ THIỆP ── */}
           <div className="relative w-full h-[30%] bg-gradient-to-b from-[#f7f1fb] to-[#ede3f5] flex flex-col items-center justify-between px-4 pt-1 pb-4 sm:pb-5 z-20">
-            
+
             {/* Hộp Trân Trọng Kính Mời */}
             <div className="w-full max-w-[290px] px-5 py-2 rounded-2xl bg-white/90 backdrop-blur-md border border-[#c8a452]/50 shadow-[0_4px_16px_rgba(107,33,168,0.08)] text-center transition-transform group-hover:scale-[1.02]">
               <div className="flex items-center justify-center gap-2 mb-0.5">
@@ -75,7 +76,7 @@ export const WeddingEnvelopeCover: React.FC<WeddingEnvelopeCoverProps> = ({
                 </span>
                 <span className="w-5 h-[1px] bg-gradient-to-l from-transparent to-[#c8a452]" />
               </div>
-              
+
               <span className="font-calligraphy text-2xl sm:text-[27px] text-[#300f47] font-normal block leading-tight mt-0.5">
                 {guestName}
               </span>
