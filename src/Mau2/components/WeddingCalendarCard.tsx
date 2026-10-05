@@ -1,6 +1,7 @@
 import React from 'react';
 import { galleryPhotos } from '../data/weddingData';
 import { Heart } from 'lucide-react';
+import { useInView } from '../hooks/useInView';
 
 interface WeddingCalendarCardProps {
   photoUrl?: string;
@@ -13,6 +14,8 @@ export const WeddingCalendarCard: React.FC<WeddingCalendarCardProps> = ({
   weddingDateStr = '29.07.2026',
   dayToHighlight = 29,
 }) => {
+  const { ref: cardRef, isInView } = useInView({ threshold: 0.15 });
+
   // July 2026 calendar data: July 1, 2026 is a Wednesday (Wed)
   const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
@@ -25,9 +28,9 @@ export const WeddingCalendarCard: React.FC<WeddingCalendarCardProps> = ({
   ];
 
   return (
-    <div className="w-full select-none">
-      {/* Main Calendar Card in Pastel Purple Tone - Ngắn gọn và rộng đều vừa vặn */}
-      <div className="w-full bg-gradient-to-br from-[#9880ad] via-[#8f75a4] to-[#866c9b] text-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-4 shadow-sm border border-purple-200/40 relative overflow-hidden">
+    <div ref={cardRef} className="w-full select-none">
+      {/* Main Calendar Card - Hiển thị khung trước */}
+      <div className="w-full bg-gradient-to-br from-[#9880ad] via-[#8f75a4] to-[#866c9b] text-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-4 shadow-sm border border-purple-200/40 relative overflow-hidden transition-all duration-700">
         <div className="grid grid-cols-12 gap-3 items-center">
           
           {/* ── CỘT TRÁI: ẢNH CƯỚI ĐỨNG CÓ THANH NGÀY DƯỚI ĐÁY ── */}
@@ -51,7 +54,7 @@ export const WeddingCalendarCard: React.FC<WeddingCalendarCardProps> = ({
             </div>
           </div>
 
-          {/* ── CỘT PHẢI: LỊCH THÁNG & NGÀY CƯỚI TRÁI TIM ── */}
+          {/* ── CỘT PHẢI: LỊCH THÁNG & CÁC NGÀY DI CHUYỂN VÀO SAU ── */}
           <div className="col-span-7 sm:col-span-7 space-y-1.5 pl-0.5">
             {/* Header Tháng */}
             <div className="text-right pr-0.5">
@@ -65,23 +68,35 @@ export const WeddingCalendarCard: React.FC<WeddingCalendarCardProps> = ({
               {weekdays.map((d, i) => (
                 <span
                   key={i}
-                  className="text-[9.5px] sm:text-[10.5px] font-semibold text-purple-200 tracking-tighter"
+                  className={`text-[9.5px] sm:text-[10.5px] font-semibold text-purple-200 tracking-tighter transition-all duration-500 ${
+                    isInView ? 'opacity-100' : 'opacity-40'
+                  }`}
                 >
                   {d}
                 </span>
               ))}
             </div>
 
-            {/* Lưới ngày */}
+            {/* Lưới ngày - CÁC CON SỐ NGÀY DI CHUYỂN VÀO SAU THEO THỨ TỰ */}
             <div className="grid grid-cols-7 gap-y-1 gap-x-0.5 text-center items-center">
               {daysGrid.map((day, idx) => {
                 if (day === null) {
                   return <div key={idx} className="h-5 sm:h-6" />;
                 }
                 const isWeddingDay = day === dayToHighlight;
+                const delayMs = 350 + (typeof day === 'number' ? day * 35 : idx * 30);
 
                 return (
-                  <div key={idx} className="flex items-center justify-center h-5 sm:h-6">
+                  <div
+                    key={idx}
+                    className="flex items-center justify-center h-5 sm:h-6"
+                    style={{
+                      transition: 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                      transitionDelay: isInView ? `${delayMs}ms` : '0ms',
+                      transform: isInView ? 'translateY(0) scale(1)' : 'translateY(14px) scale(0.6)',
+                      opacity: isInView ? 1 : 0,
+                    }}
+                  >
                     {isWeddingDay ? (
                       /* Ngày cưới được làm nổi bật với biểu tượng trái tim đỏ */
                       <div className="relative w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-rose-600 text-white flex items-center justify-center font-bold text-[10px] sm:text-[11px] shadow-sm animate-pulse">

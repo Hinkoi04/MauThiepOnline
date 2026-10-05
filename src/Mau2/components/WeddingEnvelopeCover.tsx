@@ -19,8 +19,8 @@ export const WeddingEnvelopeCover: React.FC<WeddingEnvelopeCoverProps> = ({
   const handleTap = useCallback(() => {
     if (phase !== 'idle') return;
     setPhase('sliding');
-    setTimeout(() => setPhase('exiting'), 2400);
-    setTimeout(onDone, 3200);
+    setTimeout(() => setPhase('exiting'), 3400);
+    setTimeout(onDone, 4200);
   }, [phase, onDone]);
 
   return (
@@ -32,7 +32,7 @@ export const WeddingEnvelopeCover: React.FC<WeddingEnvelopeCoverProps> = ({
       style={{
         backgroundColor: '#1b1226',
         transform: phase !== 'idle' ? 'translateY(-100%)' : 'translateY(0)',
-        transition: 'transform 2.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.2s ease 0.8s',
+        transition: 'transform 3.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.4s ease 1.0s',
         touchAction: 'none',
       }}
     >

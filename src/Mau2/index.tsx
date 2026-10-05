@@ -74,37 +74,74 @@ export default function Mau2({ defaultOpened = false }: Mau2Props) {
     }
   }, [opened]);
 
-  // Handle Envelope Open Done & Slow Cinematic Auto-Scroll down into invitation
+  const isAutoScrollingRef = useRef<boolean>(false);
+  const autoScrollRafRef = useRef<number | null>(null);
+
+  // Stop auto-scroll function
+  const stopAutoScroll = useCallback(() => {
+    if (isAutoScrollingRef.current) {
+      isAutoScrollingRef.current = false;
+      if (autoScrollRafRef.current !== null) {
+        cancelAnimationFrame(autoScrollRafRef.current);
+        autoScrollRafRef.current = null;
+      }
+    }
+  }, []);
+
+  // Listen for ANY user interaction to immediately stop auto-scroll
+  useEffect(() => {
+    const handleUserInteraction = () => {
+      stopAutoScroll();
+    };
+
+    window.addEventListener('wheel', handleUserInteraction, { passive: true });
+    window.addEventListener('touchstart', handleUserInteraction, { passive: true });
+    window.addEventListener('touchmove', handleUserInteraction, { passive: true });
+    window.addEventListener('pointerdown', handleUserInteraction, { passive: true });
+    window.addEventListener('mousedown', handleUserInteraction, { passive: true });
+    window.addEventListener('keydown', handleUserInteraction, { passive: true });
+
+    return () => {
+      window.removeEventListener('wheel', handleUserInteraction);
+      window.removeEventListener('touchstart', handleUserInteraction);
+      window.removeEventListener('touchmove', handleUserInteraction);
+      window.removeEventListener('pointerdown', handleUserInteraction);
+      window.removeEventListener('mousedown', handleUserInteraction);
+      window.removeEventListener('keydown', handleUserInteraction);
+    };
+  }, [stopAutoScroll]);
+
+  // Handle Envelope Open Done & Start Smooth Continuous Auto-Scroll to the bottom
   const handleEnvelopeDone = useCallback(() => {
     setOpened(true);
     weddingAudio.play();
 
-    // Cinematic ultra-slow auto-scroll (glides smoothly over ~3.8s)
+    // Start auto-scroll down smoothly after envelope transition
     setTimeout(() => {
-      const startY = window.scrollY;
-      const targetY = 260;
-      const distance = targetY - startY;
-      const duration = 3800; // 3.8 seconds ultra-slow glide
-      let startTime: number | null = null;
+      isAutoScrollingRef.current = true;
+      let lastTime: number | null = null;
+      // Scroll speed: ~55 pixels per second (smooth and readable)
+      const scrollSpeed = 0.055;
 
-      const smoothStep = (timestamp: number) => {
-        if (!startTime) startTime = timestamp;
-        const progress = Math.min((timestamp - startTime) / duration, 1);
-        // Easing: cubic bezier ease-in-out
-        const ease = progress < 0.5 
-          ? 4 * progress * progress * progress 
-          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      const scrollLoop = (time: number) => {
+        if (!isAutoScrollingRef.current) return;
 
-        window.scrollTo(0, startY + distance * ease);
-
-        if (progress < 1) {
-          requestAnimationFrame(smoothStep);
+        if (lastTime !== null) {
+          const delta = time - lastTime;
+          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+          if (window.scrollY >= maxScroll - 4) {
+            stopAutoScroll();
+            return;
+          }
+          window.scrollBy(0, delta * scrollSpeed);
         }
+        lastTime = time;
+        autoScrollRafRef.current = requestAnimationFrame(scrollLoop);
       };
 
-      requestAnimationFrame(smoothStep);
-    }, 600);
-  }, []);
+      autoScrollRafRef.current = requestAnimationFrame(scrollLoop);
+    }, 800);
+  }, [stopAutoScroll]);
 
   // Track active section on scroll
   useEffect(() => {
@@ -128,6 +165,7 @@ export default function Mau2({ defaultOpened = false }: Mau2Props) {
 
   // Smooth scroll to target section
   const scrollToSection = (sectionId: ScreenId) => {
+    stopAutoScroll();
     setActiveSection(sectionId);
     const el = document.getElementById(`section-${sectionId}`);
     if (el) {

@@ -80,19 +80,46 @@ export const CoverScreen: React.FC<CoverScreenProps> = ({
           </h1>
         </div>
 
-        {/* Tên Cặp Đôi & Ngày Cưới */}
-        <div className="text-center w-full max-w-xs mx-auto space-y-1.5">
+        {/* Tên Cặp Đôi (Hiệu ứng đi từ 2 bên vô chậm 3s) & Ngày Cưới */}
+        <div className="text-center w-full max-w-sm mx-auto space-y-1.5 overflow-hidden py-1">
           <div className="flex items-center justify-center gap-3">
-            <span className="font-calligraphy text-3xl sm:text-4xl text-[#3b1554] font-normal">
+            {/* Tên Chú Rể đi từ bên trái vào */}
+            <span
+              className={`font-calligraphy text-3xl sm:text-4xl text-[#3b1554] font-normal transition-all duration-[3000ms] ease-out inline-block ${
+                contentInView
+                  ? 'opacity-100 translate-x-0'
+                  : 'opacity-0 -translate-x-24'
+              }`}
+            >
               {weddingInfo.groomName}
             </span>
-            <span className="font-serif italic text-lg text-[#8b5eb5]">&</span>
-            <span className="font-calligraphy text-3xl sm:text-4xl text-[#3b1554] font-normal">
+
+            {/* Dấu & ở giữa */}
+            <span
+              className={`font-serif italic text-lg text-[#8b5eb5] transition-all duration-[2600ms] ease-out delay-300 inline-block ${
+                contentInView ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
+              }`}
+            >
+              &
+            </span>
+
+            {/* Tên Cô Dâu đi từ bên phải vào */}
+            <span
+              className={`font-calligraphy text-3xl sm:text-4xl text-[#3b1554] font-normal transition-all duration-[3000ms] ease-out inline-block ${
+                contentInView
+                  ? 'opacity-100 translate-x-0'
+                  : 'opacity-0 translate-x-24'
+              }`}
+            >
               {weddingInfo.brideName}
             </span>
           </div>
 
-          <div className="font-serif text-sm sm:text-base font-medium tracking-[0.25em] text-[#541f7a]">
+          <div
+            className={`font-serif text-sm sm:text-base font-medium tracking-[0.25em] text-[#541f7a] transition-all duration-[2800ms] ease-out delay-500 ${
+              contentInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
+          >
             {weddingInfo.solarDateText}
           </div>
         </div>

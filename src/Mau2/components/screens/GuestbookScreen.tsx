@@ -128,67 +128,77 @@ export const GuestbookScreen: React.FC = () => {
           </button>
         </form>
 
-        {/* Wishes List - Bong bóng hình viên thuốc trong suốt hiện lên ẩn xuống liên tục */}
-        <div className="space-y-4 pt-1">
+        {/* Wishes List - Bong bóng hình viên thuốc cuộn liên tục lặp lại trong khung cố định (chứa ~5 cái) */}
+        <div className="space-y-2 pt-2">
           <div className="flex items-center justify-between text-xs text-slate-500 px-2">
             <span className="font-semibold text-[#4a1d6d] tracking-wide">
               Bong bóng lời chúc ({wishes.length})
             </span>
             <span className="text-[11px] text-purple-400 font-serif italic">
-              ✦ Trôi bồng bềnh
+              ✦ Cuộn lặp lại liên tục
             </span>
           </div>
 
-          <div className="space-y-3 relative py-2">
-            {wishes.map((wish, index) => {
-              const isLiked = likedIds.includes(wish.id);
-              const animClass = `animate-pill-bubble-${index % 6}`;
+          {/* KHUNG CỐ ĐỊNH CHỨA ~5 BONG BÓNG LỜI CHÚC CUỘN VÒNG LẶP */}
+          <div className="relative h-[310px] sm:h-[330px] overflow-hidden rounded-2xl bg-[#faf6fe]/60 border border-[#e8dcef]/70 p-2">
+            
+            {/* Lớp gradient mờ ở đỉnh & đáy khung tạo hiệu ứng xuất hiện / biến mất êm dịu */}
+            <div className="absolute inset-x-0 top-0 h-8 bg-gradient-to-b from-[#faf6fe] to-transparent pointer-events-none z-10" />
+            <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-[#faf6fe] to-transparent pointer-events-none z-10" />
 
-              return (
-                <div
-                  key={wish.id}
-                  className={`w-full rounded-full bg-white/75 backdrop-blur-md border border-white/90 shadow-[0_6px_20px_rgba(107,33,168,0.07)] p-2.5 sm:p-3 flex items-center justify-between gap-3 text-xs transition-transform hover:scale-[1.02] ${animClass}`}
-                >
-                  {/* Avatar Tròn & Nội Dung Lời Chúc Dạng Viên Thuốc */}
-                  <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                    <div className="shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-[#f3e7fb] to-[#e7d2f7] text-[#6b3594] font-bold flex items-center justify-center text-xs border border-white shadow-2xs">
-                      {wish.senderName.charAt(0).toUpperCase()}
-                    </div>
-                    
-                    <div className="min-w-0 flex-1 pr-1">
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-[#3b1554] truncate text-xs">
-                          {wish.senderName}
-                        </span>
-                        <span className="text-[9.5px] text-slate-400 shrink-0">
-                          {wish.timestamp}
-                        </span>
-                      </div>
-                      <p className="text-slate-700 font-sans truncate text-[11px] sm:text-xs leading-tight mt-0.5">
-                        "{wish.message}"
-                      </p>
-                    </div>
-                  </div>
+            {/* Dải bong bóng cuộn dọc liên tục (Infinite Loop) */}
+            <div className="animate-marquee-vertical space-y-2.5 py-1">
+              {/* Lặp 2 lần danh sách để tạo vòng lặp vô tận liền mạch */}
+              {[...wishes, ...wishes].map((wish, index) => {
+                const isLiked = likedIds.includes(wish.id);
 
-                  {/* Nút Thả Tim */}
-                  <button
-                    onClick={() => handleLike(wish.id)}
-                    className={`shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-full text-[11px] font-semibold transition-all cursor-pointer border ${
-                      isLiked
-                        ? 'bg-rose-50/90 text-rose-600 border-rose-200'
-                        : 'bg-white/80 text-[#7c4a9e] border-[#e8dcef] hover:bg-purple-50'
-                    }`}
+                return (
+                  <div
+                    key={`${wish.id}-${index}`}
+                    className="w-full rounded-full bg-white/85 backdrop-blur-md border border-white/95 shadow-[0_4px_16px_rgba(107,33,168,0.06)] p-2.5 sm:p-3 flex items-center justify-between gap-2.5 text-xs transition-transform hover:scale-[1.01]"
                   >
-                    <Heart
-                      className={`w-3.5 h-3.5 ${
-                        isLiked ? 'fill-rose-500 text-rose-500' : 'text-purple-400'
+                    {/* Avatar Tròn & Nội Dung Lời Chúc Dạng Viên Thuốc */}
+                    <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                      <div className="shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-[#f3e7fb] to-[#e7d2f7] text-[#6b3594] font-bold flex items-center justify-center text-xs border border-white shadow-2xs">
+                        {wish.senderName.charAt(0).toUpperCase()}
+                      </div>
+                      
+                      <div className="min-w-0 flex-1 pr-1">
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold text-[#3b1554] truncate text-xs">
+                            {wish.senderName}
+                          </span>
+                          <span className="text-[9.5px] text-slate-400 shrink-0">
+                            {wish.timestamp}
+                          </span>
+                        </div>
+                        <p className="text-slate-700 font-sans truncate text-[11px] sm:text-xs leading-tight mt-0.5">
+                          "{wish.message}"
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Nút Thả Tim */}
+                    <button
+                      type="button"
+                      onClick={() => handleLike(wish.id)}
+                      className={`shrink-0 flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold transition-all cursor-pointer border ${
+                        isLiked
+                          ? 'bg-rose-50/90 text-rose-600 border-rose-200'
+                          : 'bg-white/80 text-[#7c4a9e] border-[#e8dcef] hover:bg-purple-50'
                       }`}
-                    />
-                    <span>{wish.likes}</span>
-                  </button>
-                </div>
-              );
-            })}
+                    >
+                      <Heart
+                        className={`w-3.5 h-3.5 ${
+                          isLiked ? 'fill-rose-500 text-rose-500' : 'text-purple-400'
+                        }`}
+                      />
+                      <span>{wish.likes}</span>
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
