@@ -23,13 +23,12 @@ export const CoverScreen: React.FC<CoverScreenProps> = ({
 
   return (
     <div className="relative w-full min-h-[100dvh] flex flex-col justify-between overflow-hidden bg-[#faf8fc] text-[#300f47] select-none">
-      
+
       {/* ── ẢNH CHÍNH KHUNG CHỮ NHẬT FULL CHIỀU NGANG TỪ TRÊN CÙNG MỜ DẦN DƯỚI CHÂN ── */}
-      <div 
+      <div
         ref={photoRef}
-        className={`relative w-full overflow-hidden reveal-init reveal-scale ${
-          photoInView ? 'reveal-active' : ''
-        }`}
+        className={`relative w-full overflow-hidden reveal-init reveal-scale ${photoInView ? 'reveal-active' : ''
+          }`}
       >
         <div className="relative w-full h-[380px] sm:h-[450px]">
           <img
@@ -49,11 +48,10 @@ export const CoverScreen: React.FC<CoverScreenProps> = ({
                 onToggleMusic();
               }}
               aria-label={isPlayingMusic ? 'Tạm dừng nhạc' : 'Phát nhạc đám cưới'}
-              className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center border transition-all duration-300 cursor-pointer shadow-lg backdrop-blur-md ${
-                isPlayingMusic
+              className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center border transition-all duration-300 cursor-pointer shadow-lg backdrop-blur-md ${isPlayingMusic
                   ? 'bg-[#4a1d6d]/80 text-amber-200 border-white/50 shadow-[0_0_15px_rgba(255,255,255,0.4)] animate-spin-slow'
                   : 'bg-black/30 text-white border-white/30 hover:bg-black/50'
-              }`}
+                }`}
               title="Bật / Tắt nhạc"
             >
               {isPlayingMusic ? (
@@ -70,20 +68,16 @@ export const CoverScreen: React.FC<CoverScreenProps> = ({
       </div>
 
       {/* ── MẢNG TRẮNG CHỨA SAVE THE DATE, TÊN CẶP ĐÔI & KHÁCH MỜI DƯỚI ẢNH ── */}
-      <div 
+      <div
         ref={contentRef}
-        className={`relative z-10 -mt-10 sm:-mt-12 flex flex-col items-center justify-between px-4 w-full flex-1 pt-1 pb-6 bg-[#faf8fc] space-y-4 reveal-init reveal-up ${
-          contentInView ? 'reveal-active' : ''
-        }`}
+        className={`relative z-10 -mt-10 sm:-mt-12 flex flex-col items-center justify-between px-4 w-full flex-1 pt-1 pb-6 bg-[#faf8fc] space-y-4 reveal-init reveal-up ${contentInView ? 'reveal-active' : ''
+          }`}
       >
         {/* SAVE THE DATE & LỄ THÀNH HÔN (ĐÃ DI CHUYỂN XUỐNG DƯỚI ẢNH, BỎ NỀN TÍM) */}
         <div className="text-center space-y-1">
           <h1 className="font-serif text-2xl sm:text-3xl font-light tracking-[0.25em] text-[#3b1554] uppercase drop-shadow-xs">
-            SAVE THE DATE
-          </h1>
-          <p className="text-[11px] sm:text-xs font-sans tracking-[0.32em] text-[#7c4a9e] uppercase font-semibold">
             LỄ THÀNH HÔN
-          </p>
+          </h1>
         </div>
 
         {/* Tên Cặp Đôi & Ngày Cưới */}
@@ -104,11 +98,10 @@ export const CoverScreen: React.FC<CoverScreenProps> = ({
         </div>
 
         {/* TRÂN TRỌNG KÍNH MỜI CARD DƯỚI ĐÁY */}
-        <div 
+        <div
           ref={guestRef}
-          className={`w-full max-w-sm mx-auto bg-white text-[#3b1554] rounded-2xl sm:rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-purple-100/70 px-5 py-3.5 text-center reveal-init reveal-up ${
-            guestInView ? 'reveal-active' : ''
-          }`}
+          className={`w-full max-w-sm mx-auto bg-white text-[#3b1554] rounded-2xl sm:rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-purple-100/70 px-5 py-3.5 text-center reveal-init reveal-up ${guestInView ? 'reveal-active' : ''
+            }`}
         >
           <div className="inline-flex items-center gap-1.5 px-3.5 py-0.5 rounded-full border border-[#9c6ebd] text-[10px] font-medium tracking-[0.2em] text-[#3b1554] uppercase bg-[#f8f2fc]">
             <span>TRÂN TRỌNG KÍNH MỜI</span>

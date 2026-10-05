@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { weddingEvents, initialWeddingInfo } from '../../data/weddingData';
 import { WeddingCalendarCard } from '../WeddingCalendarCard';
-import { Calendar, Check, Copy, Navigation } from 'lucide-react';
+import { Navigation } from 'lucide-react';
 import { useInView } from '../../hooks/useInView';
 
 export const ScheduleScreen: React.FC = () => {
-  const [copied, setCopied] = useState(false);
   const event = weddingEvents[0];
   const info = initialWeddingInfo;
 
@@ -15,19 +14,6 @@ export const ScheduleScreen: React.FC = () => {
   const { ref: mapRef, isInView: mapInView } = useInView({ threshold: 0.15 });
 
   if (!event) return null;
-
-  const copyAddress = () => {
-    navigator.clipboard.writeText(`${event.locationName}: ${event.address}`);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
-  };
-
-  const createGoogleCalendarLink = () => {
-    const title = encodeURIComponent(event.calendarTitle);
-    const details = encodeURIComponent(`Địa điểm: ${event.locationName} - ${event.address}`);
-    const location = encodeURIComponent(event.address);
-    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}`;
-  };
 
   return (
     <div className="relative w-full min-h-full px-4 sm:px-6 py-8 bg-gradient-to-b from-[#faf7fb] via-[#f7eff7] to-[#faf7fb] text-[#300f47] overflow-hidden">
@@ -99,19 +85,19 @@ export const ScheduleScreen: React.FC = () => {
               </p>
             </div>
 
-            {/* ── 3. KHỐI HIỂN THỊ NGÀY ĐẶC TRƯNG: [THÁNG] [NGÀY TO] [NĂM] ── */}
-            <div className="flex items-center justify-center gap-2 sm:gap-4 py-1">
+            {/* ── 3. KHỐI HIỂN THỊ NGÀY ĐẶC TRƯNG: [THÁNG] [NGÀY TO] [NĂM] (DÀI XUỐNG DỄ NHÌN) ── */}
+            <div className="flex items-center justify-center gap-3 sm:gap-4 py-3 sm:py-4 my-1">
               {/* THÁNG */}
               <div className="flex-1 text-center">
-                <div className="border-t border-b border-[#3b1554]/30 py-1.5 sm:py-2 px-1">
-                  <span className="font-serif text-sm sm:text-base font-bold tracking-widest text-[#3b1554] uppercase block">
+                <div className="border-t border-b border-[#3b1554]/30 py-3 sm:py-4 px-2 min-h-[56px] sm:min-h-[64px] flex items-center justify-center">
+                  <span className="font-serif text-sm sm:text-base font-bold tracking-[0.2em] text-[#3b1554] uppercase block">
                     {event.monthText || 'THÁNG 07'}
                   </span>
                 </div>
               </div>
 
               {/* CON SỐ NGÀY RẤT TO Ở CHÍNH GIỮA */}
-              <div className="shrink-0 px-2 transform hover:scale-105 transition-transform">
+              <div className="shrink-0 px-2 sm:px-3 transform hover:scale-105 transition-transform flex items-center justify-center">
                 <span className="font-serif text-5xl sm:text-6xl font-semibold text-[#802534] leading-none select-none block drop-shadow-xs">
                   {event.day || '29'}
                 </span>
@@ -119,8 +105,8 @@ export const ScheduleScreen: React.FC = () => {
 
               {/* NĂM */}
               <div className="flex-1 text-center">
-                <div className="border-t border-b border-[#3b1554]/30 py-1.5 sm:py-2 px-1">
-                  <span className="font-serif text-sm sm:text-base font-bold tracking-widest text-[#3b1554] uppercase block">
+                <div className="border-t border-b border-[#3b1554]/30 py-3 sm:py-4 px-2 min-h-[56px] sm:min-h-[64px] flex items-center justify-center">
+                  <span className="font-serif text-sm sm:text-base font-bold tracking-[0.2em] text-[#3b1554] uppercase block">
                     {event.yearText || 'NĂM 2026'}
                   </span>
                 </div>
@@ -128,7 +114,7 @@ export const ScheduleScreen: React.FC = () => {
             </div>
 
             {/* ── 4. NGÀY ÂM LỊCH ── */}
-            <div className="text-center">
+            <div className="text-center pt-1 pb-1">
               <p className="font-serif italic text-xs sm:text-sm text-slate-600">
                 {event.lunarText || `(${info.lunarDateText})`}
               </p>
@@ -150,52 +136,20 @@ export const ScheduleScreen: React.FC = () => {
             </div>
           </div>
 
-          {/* ── 7. CÁC NÚT HÀNH ĐỘNG TỐI GIẢN (CHỈ ĐƯỜNG & CHÉP ĐỊA CHỈ) ── */}
+          {/* ── 7. NÚT CHỈ ĐƯỜNG MAPS TỐI GIẢN ── */}
           <div 
             ref={mapRef} 
-            className={`space-y-3 pt-1 reveal-init reveal-up ${mapInView ? 'reveal-active' : ''}`}
+            className={`pt-2 reveal-init reveal-up ${mapInView ? 'reveal-active' : ''}`}
           >
-            <div className="grid grid-cols-2 gap-2.5">
-              <button
-                onClick={copyAddress}
-                className="flex items-center justify-center gap-1.5 py-3 px-3 rounded-2xl bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-semibold transition-colors cursor-pointer border border-slate-200 shadow-2xs"
-              >
-                {copied ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-emerald-600" />
-                    <span className="text-emerald-700 font-semibold">Đã chép địa chỉ</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3.5 h-3.5 text-slate-500" />
-                    <span>Chép địa chỉ</span>
-                  </>
-                )}
-              </button>
-
-              <a
-                href={event.mapUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-1.5 py-3 px-3 rounded-2xl bg-[#4a1d6d] hover:bg-[#5c2487] text-white text-xs font-semibold transition-colors cursor-pointer shadow-sm"
-              >
-                <Navigation className="w-3.5 h-3.5 text-amber-200" />
-                <span>Chỉ đường Maps</span>
-              </a>
-            </div>
-
-            {/* Thêm vào Google Calendar */}
-            <div className="text-center pt-0.5">
-              <a
-                href={createGoogleCalendarLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs text-[#7c4a9e] hover:text-[#4a1d6d] font-medium py-1 px-3 rounded-full hover:bg-purple-50 transition-colors"
-              >
-                <Calendar className="w-3.5 h-3.5" />
-                <span>Thêm sự kiện vào Google Calendar</span>
-              </a>
-            </div>
+            <a
+              href={event.mapUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full max-w-xs mx-auto flex items-center justify-center gap-2 py-3 px-6 rounded-full bg-[#4a1d6d] hover:bg-[#5c2487] text-white text-xs sm:text-sm font-semibold tracking-wider transition-all duration-300 cursor-pointer shadow-md hover:shadow-lg active:scale-98"
+            >
+              <Navigation className="w-4 h-4 text-amber-300" />
+              <span>CHỈ ĐƯỜNG GOOGLE MAPS</span>
+            </a>
           </div>
         </div>
       </div>

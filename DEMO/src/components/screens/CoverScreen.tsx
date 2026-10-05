@@ -42,10 +42,15 @@ export const CoverScreen: React.FC<CoverScreenProps> = ({
         <div className="flex items-center justify-center gap-3 mb-1.5">
           <span className="w-8 sm:w-10 h-[1px] bg-[#899cb0]" />
           <span className="text-[11px] sm:text-xs font-semibold tracking-[0.25em] text-[#2c3e55] uppercase font-sans">
-            LỄ THÀNH HÔN
+            SAVE THE DATE
           </span>
           <span className="w-8 sm:w-10 h-[1px] bg-[#899cb0]" />
         </div>
+
+        {/* LỄ THÀNH HÔN */}
+        <h1 className="text-xs sm:text-[13px] font-serif font-medium tracking-[0.35em] text-[#1e2f47] uppercase">
+          LỄ THÀNH HÔN
+        </h1>
       </div>
 
       {/* Center Main Stage: Arch Window & Couple Names */}
