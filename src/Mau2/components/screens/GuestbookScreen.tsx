@@ -11,7 +11,7 @@ export const GuestbookScreen: React.FC = () => {
   const [likedIds, setLikedIds] = useState<string[]>([]);
 
   const { ref: headerRef, isInView: headerInView } = useInView({ threshold: 0.15 });
-  const { ref: formRef, isInView: formInView } = useInView({ threshold: 0.15 });
+  const { ref: formRef, isInView: formInView } = useInView<HTMLFormElement>({ threshold: 0.15 });
   const { ref: wishesRef, isInView: wishesInView } = useInView({ threshold: 0.15 });
 
   useEffect(() => {
